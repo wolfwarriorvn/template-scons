@@ -1,0 +1,21 @@
+import os
+#Set build Environment
+## Windows with MSVC
+###env = Environment(ENV=os.environ)
+
+## Windows with mingw
+env = Environment(tools = ['mingw'])
+env['ENV']['PATH'] += ';' + r'C:\Qt\Qt5.11.2\Tools\mingw530_32\bin'
+env.Append(LINKFLAGS = "-static")
+
+## Cross-compiler for ARM GNU in windows
+###env = Environment(tools=('gcc', 'g++', 'gnulink', 'ar', 'as'), ENV=os.environ)
+###env['ENV']['PATH'] += ';' + r'C:\Program Files (x86)\GNU Tools ARM Embedded\4.9 2014q4\bin'
+###env.SetOption('warn', 'no-visual-c-missing')
+
+
+Export('env')
+# Use ./bin for building to keep the source tree clean
+VariantDir('bin', 'src', duplicate=0)
+# We say ./bin/X but we mean ./src/X, thanks to the line above
+SConscript('bin/SConscript')

@@ -1,0 +1,4 @@
+
+Import('env')
+# Source Build
+env.Program('main.c')
